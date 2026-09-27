@@ -1,4 +1,4 @@
-CREATE TABLE Student (
+7CREATE TABLE Student (
     StudentID INT PRIMARY KEY,
     StudentName VARCHAR(50)
 );
