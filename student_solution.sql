@@ -1,55 +1,48 @@
-7CREATE TABLE Student (
+USE CollegeDB;
+
+DROP TABLE IF EXISTS StudentCourse;
+DROP TABLE IF EXISTS Course;
+DROP TABLE IF EXISTS Faculty;
+DROP TABLE IF EXISTS Department;
+DROP TABLE IF EXISTS Student;
+
+-- 1. Student Table
+CREATE TABLE Student (
     StudentID INT PRIMARY KEY,
-    StudentName VARCHAR(50)
+    StudentName VARCHAR(100) NOT NULL
 );
 
+-- 2. Department Table
 CREATE TABLE Department (
     DepartmentID INT PRIMARY KEY,
-    DepartmentName VARCHAR(100)
+    DepartmentName VARCHAR(100) NOT NULL
 );
 
+-- 3. Faculty Table
 CREATE TABLE Faculty (
     FacultyID INT PRIMARY KEY,
-    FacultyName VARCHAR(100),
+    FacultyName VARCHAR(100) NOT NULL,
     DepartmentID INT,
-    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)
+    FOREIGN KEY (DepartmentID)
+        REFERENCES Department(DepartmentID)
 );
 
+-- 4. Course Table
 CREATE TABLE Course (
     CourseID INT PRIMARY KEY,
-    CourseName VARCHAR(100),
+    CourseName VARCHAR(100) NOT NULL,
     FacultyID INT,
-    FOREIGN KEY (FacultyID) REFERENCES Faculty(FacultyID)
+    FOREIGN KEY (FacultyID)
+        REFERENCES Faculty(FacultyID)
 );
 
+-- 5. StudentCourse Table
 CREATE TABLE StudentCourse (
     StudentID INT,
     CourseID INT,
     PRIMARY KEY (StudentID, CourseID),
-    FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
-    FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
+    FOREIGN KEY (StudentID)
+        REFERENCES Student(StudentID),
+    FOREIGN KEY (CourseID)
+        REFERENCES Course(CourseID)
 );
-
-INSERT INTO Student VALUES
-(1001, 'Arun'),
-(1002, 'Priya'),
-(1003, 'Kumar');
-
-INSERT INTO Department VALUES
-(1, 'Computer Science'),
-(2, 'Mathematics');
-
-INSERT INTO Faculty VALUES
-(1, 'Dr. Ravi', 1),
-(2, 'Dr. Meena', 2);
-
-INSERT INTO Course VALUES
-(101, 'Database Systems', 1),
-(102, 'Data Structures', 1),
-(103, 'Mathematics', 2);
-
-INSERT INTO StudentCourse VALUES
-(1001, 101),
-(1001, 102),
-(1002, 103),
-(1003, 101);
